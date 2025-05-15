@@ -7,15 +7,11 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     , m_preShapeBorderWidth(2)
 {
     ui.setupUi(this);
-    // 将canvas移动到QScrollArea中间
     moveCanvasToCenter();
-    // 安装事件过滤器
     ui.m_shapeBorderWidth->installEventFilter(this);
     ui.m_shapeBorderStyle->installEventFilter(this);
-    // 顶部工具的信号和槽连接
     (void)connect(ui.m_cleanCanvasBtn, &QPushButton::clicked, this, &KSVGEditor::onCleanCanvasClicked);
     (void)connect(ui.m_exportPNGBtn, &QPushButton::clicked, this, &KSVGEditor::onExportPNGBtnClicked);
-    // 左侧工具的信号和槽连接
     (void)connect(ui.m_selectButton, &QToolButton::clicked, this, &KSVGEditor::onSelectButtonClicked);
     (void)connect(ui.m_lineButton, &QToolButton::clicked, this, &KSVGEditor::onLineButtonClicked);
     (void)connect(ui.m_circleButton, &QToolButton::clicked, this, &KSVGEditor::onCircleButtonClicked);
@@ -24,7 +20,6 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     (void)connect(ui.m_hexagonButton, &QToolButton::clicked, this, &KSVGEditor::onHexagonButtonClicked);
     (void)connect(ui.m_pentagramButton, &QToolButton::clicked, this, &KSVGEditor::onPentagramButtonClicked);
 
-    // 右侧画布参数设置的信号和槽连接
     (void)connect(ui.m_canvasWidth, 
         QOverload<int>::of(&QSpinBox::valueChanged), 
         this, 
@@ -39,7 +34,6 @@ KSVGEditor::KSVGEditor(QWidget *parent)
         &KSVGEditor::onZoomCanvas);
     (void)connect(ui.m_setCanvasColorButton, &QPushButton::pressed, this, &KSVGEditor::setCanvasColor);
 
-    // 右侧图形参数设置的信号和槽连接
     (void)connect(ui.m_shapeBorderWidth,
         QOverload<int>::of(&QSpinBox::valueChanged),
         this,
@@ -63,7 +57,6 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     (void)connect(ui.m_canvas, &KCanvas::shapeSelected, this, &KSVGEditor::onIsSelectShape);
 }
 
-// 将画布移动到QScrollArea中间
 void KSVGEditor::moveCanvasToCenter()
 {
     int x, y;
@@ -73,7 +66,7 @@ void KSVGEditor::moveCanvasToCenter()
     ui.m_canvas->update();
 }
 
-// 清空画布
+
 void KSVGEditor::onCleanCanvasClicked()
 {
 	QMessageBox::StandardButton cleanReply;
@@ -90,7 +83,7 @@ void KSVGEditor::onCleanCanvasClicked()
     }   
 }
 
-// 导出PNG
+
 void KSVGEditor::onExportPNGBtnClicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, QStringLiteral("导出PNG"), "", "PNG Files (*.png)");
@@ -105,83 +98,79 @@ void KSVGEditor::onExportPNGBtnClicked()
 	}
 }
 
-// 选择按钮功能
+
 void KSVGEditor::onSelectButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::MouseDrawFlag);
 }
 
-// 绘制直线
+
 void KSVGEditor::onLineButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::LineDrawFlag);
 }
 
-// 绘制圆形
+
 void KSVGEditor::onCircleButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::CircleDrawFlag);
 }
 
-// 绘制正方形
+
 void KSVGEditor::onRectButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::RectDrawFlag);
 }
 
-// 绘制五边形
+
 void KSVGEditor::onPentagonButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::PentagonDrawFlag);
 }
 
-// 绘制六边形
+
 void KSVGEditor::onHexagonButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::HexagonDrawFlag);
 }
 
-// 绘制五角星
+
 void KSVGEditor::onPentagramButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::PentagramDrawFlag);
 }
 
-// 设置画布宽度
+
 void KSVGEditor::onSetCanvasWidth(int width)
 {
     ui.m_canvas->setCanvasWidth(width);
 }
 
-// 设置画布高度
+
 void KSVGEditor::onSetCanvasHeight(int height)
 {
     ui.m_canvas->setCanvasHeight(height);
 }
 
-// 缩放画布
+
 void KSVGEditor::onZoomCanvas(qreal scale)
 {
-    // 设置图形新的缩放比例
     KShapeParameter::getInstance()->setShapeScale(scale);
-    // 设置画布缩放比例
     KShapeParameter::getInstance()->setCanvasScale(scale);
-    // 缩放画布
     ui.m_canvas->zoomCanvas(scale);
 }
 
-// 设置画布颜色
+
 void KSVGEditor::setCanvasColor()
 {
     QRgb color = selectColor();
     QString qssStr = QString("background: #%1;").arg(QString::number(color, 16));
     ui.m_canvas->setStyleSheet(qssStr);
-    // 更新界面选择按钮的颜色
     qssStr += "border:none;";
     ui.m_setCanvasColorButton->setStyleSheet(qssStr);
 }
 
-// 设置图形边框宽度
+
 void KSVGEditor::onSetShapeBorderWidth(int width)
 {
         KShapeParameter::getInstance()->setBorderWidth(width);
@@ -199,7 +188,7 @@ void KSVGEditor::onSetShapeBorderStyle(Qt::PenStyle style)
     ui.m_canvas->update();
 }
 
-// 设置图形边框颜色
+
 void KSVGEditor::onSetShapeBorderColor()
 {
     if (m_isSelectShape)
@@ -215,14 +204,14 @@ void KSVGEditor::onSetShapeBorderColor()
     }
 }
 
-// 设置调整图形边框颜色的按钮颜色
+
 void KSVGEditor::onSetShapeBorderColorButtonColor(QRgb color)
 {
     QString qssStr = QString("background: #%1;border:none;").arg(QString::number(color, 16));
     ui.m_setShapeBorderColorButton->setStyleSheet(qssStr);
 }
 
-// 设置图形填充颜色
+
 void KSVGEditor::onSetShapeColor()
 {
     if (m_isSelectShape)
@@ -245,14 +234,14 @@ void KSVGEditor::onSetShapeColor()
     }
 }
 
-// 设置调整图形填充颜色的按钮颜色
+
 void KSVGEditor::onSetShapeColorButtonColor(QRgb color)
 {
     QString qssStr = QString("background: #%1;border:none;").arg(QString::number(color, 16));
     ui.m_setShapeColorButton->setStyleSheet(qssStr);
 }
 
-// 设置是否选中图形
+
 void KSVGEditor::onIsSelectShape(bool isSelected)
 {
     m_isSelectShape = isSelected;
@@ -268,22 +257,19 @@ void KSVGEditor::onIsSelectShape(bool isSelected)
     }
 }
 
-// 打开颜色选择对话框选择一个颜色
+
 QRgb KSVGEditor::selectColor()
 {
-    // 创建颜色对话框
     QColorDialog colorDialog(this);
     QColor color = colorDialog.getColor();
     if (!color.isValid())
         return qRgb(255, 255, 255);
-    // 选择颜色的rgb
     QRgb rgb = qRgb(color.red(), color.green(), color.blue());
     return rgb;
 }
 
 bool KSVGEditor::eventFilter(QObject *watched, QEvent *event)
 {
-    // 当未选中图形但是试图调整图形宽度时，发出提示
     if (watched == ui.m_shapeBorderWidth &&
         (event->type() == QEvent::MouseButtonPress ||
             event->type() == QEvent::Wheel))
@@ -293,7 +279,7 @@ bool KSVGEditor::eventFilter(QObject *watched, QEvent *event)
         {
             QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("未选中图形，请先选择图形"));
             mouseEvent->ignore();
-            return true;  // 事件已处理
+            return true;  
         }
     }
     else if (watched == ui.m_shapeBorderStyle && event->type() == QEvent::MouseButtonPress)
@@ -303,7 +289,7 @@ bool KSVGEditor::eventFilter(QObject *watched, QEvent *event)
         {
             QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("未选中图形，请先选择图形"));
             mouseEvent->ignore();
-            return true;  // 事件已处理
+            return true; 
         }
     }
 

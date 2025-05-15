@@ -15,31 +15,31 @@ KShape::~KShape()
 {
 }
 
-// 获取起始坐标点
+
 QPointF KShape::getStartPoint() const
 {
 	return m_startPoint;
 }
 
-// 获取绘画结束坐标点
+
 QPointF KShape::getEndPoint() const
 {
 	return m_endPoint;
 }
 
-// 设置绘画起始坐标点
+
 void KShape::setStartPoint(const QPointF &point)
 {
 	m_startPoint = point;
 }
 
-// 设置绘画结束坐标点
+
 void KShape::setEndPoint(const QPointF &point)
 {
 	m_endPoint = point;
 }
 
-// 判断绘画是否合法
+
 bool KShape::isShapeVaild() const
 {
 	return (m_startPoint.x() != m_endPoint.x() || m_startPoint.y() != m_endPoint.y());
@@ -59,9 +59,7 @@ QRectF KShape::getShapeRect()
 void KShape::drawOutline(QPaintDevice *parent)
 {
 	QPainter painter(parent);
-	// 开启防锯齿
 	painter.setRenderHint(QPainter::Antialiasing);
-	// 应用缩放变换
 	QTransform transform;
 	transform.scale(m_scaleFactor, m_scaleFactor);
 	painter.setTransform(transform);
@@ -69,89 +67,73 @@ void KShape::drawOutline(QPaintDevice *parent)
 	painter.drawRect(getShapeRect());
 }
 
-// 选中图形高亮显示边框以及八个控制点
+
 void KShape::drawSelectedHighlight(QPaintDevice *parent, bool drawControl)
 {
 	QPainter painter(parent);
-	// 开启防锯齿
 	painter.setRenderHint(QPainter::Antialiasing);
-	// 应用缩放变换
 	QTransform transform;
 	transform.scale(m_scaleFactor, m_scaleFactor);
 	painter.setTransform(transform);
 	painter.setPen(QPen(QColor(128, 0, 128), 2.0, Qt::SolidLine));
-	// 获取矩形框的宽和高
 	int shapeWidth = m_endPoint.x() - m_startPoint.x();
 	int shapeHeight = m_endPoint.y() - m_startPoint.y();
-	// 如果边界矩形的宽度或高度小于等于0，则返回不进行绘制
 	if (shapeWidth <= 0 || shapeHeight <= 0)
 		return;
-	// 绘制边界矩形
 	painter.drawRect(getShapeRect());
-	// 检查是否需要绘制控制点
 	if (!drawControl)
 		return;
-	// 获取边界矩形的左上角坐标
 	QPointF shapeLeftTopXY = m_startPoint;
-	// 获取缩放比例
 	qreal scale = KShapeParameter::getInstance()->getShapeScale();
-	// 设置控制点的一半长度的值
 	qreal halfLength = 4.0 * scale;
-	// 遍历8个控制点，并设置它们的位置和大小
 	for (int i = 0; i < 8; i++)
 	{
 		switch (i)
 		{
-		case 0:	// 设置左上角的控制点的左上角坐标
+		case 0:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() - halfLength);
 			break;
-		case 1:	// 设置上边中点的控制点的左上角坐标
+		case 1:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() + shapeWidth / 2.0 - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() - halfLength);
 			break;
-		case 2:	// 设置右上角的控制点的左上角坐标
+		case 2:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() + shapeWidth - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() - halfLength);
 			break;
-		case 3:	// 设置右边中点的控制点的左上角坐标
+		case 3:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() + shapeWidth - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() + shapeHeight / 2.0 - halfLength);
 			break;
-		case 4:	// 设置右下角的控制点的左上角坐标
+		case 4:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() + shapeWidth - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() + shapeHeight - halfLength);
 			break;
-		case 5:	// 设置下边中点的控制点的左上角坐标
+		case 5:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() + shapeWidth / 2.0 - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() + shapeHeight - halfLength);
 			break;
-		case 6:	// 设置左下角的控制点的左上角坐标
+		case 6:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() + shapeHeight - halfLength);
 			break;
-		case 7:	// 设置左边中点的控制点的左上角坐标
+		case 7:	
 			m_controlRect[i].setX(shapeLeftTopXY.x() - halfLength);
 			m_controlRect[i].setY(shapeLeftTopXY.y() + shapeHeight / 2.0 - halfLength);
 			break;
 		default:
 			break;
 		}
-
-		// 设置控制点的大小
 		m_controlRect[i].setWidth(2.0 * halfLength);
 		m_controlRect[i].setHeight(2.0 * halfLength);
-
-		// 绘制控制点矩形
 		painter.drawRect(m_controlRect[i]);
-		// 填充控制点矩形为蓝色
 		painter.fillRect(m_controlRect[i], QColor(128, 0, 128));
 	}
 }
 
 void KShape::move(const QPointF &offset)
 {
-	// 平移矩形边界（需要再绘制图形才能将图形平移）
 	m_startPoint += offset;
 	m_endPoint += offset;
 }
