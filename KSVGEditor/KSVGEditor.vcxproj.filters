@@ -73,6 +73,9 @@
     <ClCompile Include="kshapeparameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="kellipse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="kborderstylebutton.h">
@@ -111,6 +114,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kellipse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_ksvgeditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

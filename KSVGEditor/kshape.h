@@ -23,6 +23,7 @@ enum class KShapeType
 	PentagonShapeType,	
 	HexagonShapeType,	
 	PentagramShapeType,	
+	EllipseShapeType,    // ĞÂÔö£ºÍÖÔ²ĞÎ
 };
 
 class KShape : public QObject

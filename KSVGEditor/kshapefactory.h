@@ -18,6 +18,7 @@
 #include "kpentagon.h"
 #include "khexagon.h"
 #include "kpentagram.h"
+#include "kellipse.h"
 
 class KShapeFactory : public QObject
 {
@@ -28,6 +29,7 @@ public:
 	~KShapeFactory();
 
 	static KShape *createShape(KCanvas::KDrawFlag drawFlag);
+	static KShape* createShape(KShapeType type);
 };
 
 #endif // _K_KSHAPEFACTORY_H_

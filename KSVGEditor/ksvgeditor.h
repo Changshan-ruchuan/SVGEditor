@@ -48,6 +48,8 @@ public:
     void onSetShapeColor();  
     void onSetShapeColorButtonColor(QRgb color);  
     void onIsSelectShape(bool isSelected);  
+    void onEllipseButtonClicked(); // 新增：椭圆按钮点击事件
+
 
 protected:
     QRgb selectColor(); 

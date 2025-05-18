@@ -99,6 +99,7 @@
     <ClCompile Include="kborderstylebutton.cpp" />
     <ClCompile Include="kcanvas.cpp" />
     <ClCompile Include="kcircle.cpp" />
+    <ClCompile Include="kellipse.cpp" />
     <ClCompile Include="khexagon.cpp" />
     <ClCompile Include="kline.cpp" />
     <ClCompile Include="kpentagon.cpp" />
@@ -141,8 +142,10 @@
     <QtMoc Include="kshapefactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="kellipse.h" />
     <ClInclude Include="kshapeparameter.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ui_ksvgeditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KSVGEditor.rc" />

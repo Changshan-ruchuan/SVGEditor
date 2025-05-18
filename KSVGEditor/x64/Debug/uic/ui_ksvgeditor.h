@@ -35,16 +35,6 @@ class Ui_KSVGEditorClass
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer_4;
-    QToolButton *m_cleanCanvasBtn;
-    QSpacerItem *horizontalSpacer_2;
-    QToolButton *m_exportPNGBtn;
-    QSpacerItem *horizontalSpacer_3;
-    QToolButton *m_saveSVGBtn;
-    QSpacerItem *horizontalSpacer;
-    QToolButton *m_openSVGBtn;
-    QSpacerItem *horizontalSpacer_5;
     QVBoxLayout *verticalLayout;
     QToolButton *m_selectButton;
     QToolButton *m_lineButton;
@@ -53,8 +43,7 @@ public:
     QToolButton *m_pentagonButton;
     QToolButton *m_hexagonButton;
     QToolButton *m_pentagramButton;
-    QScrollArea *scrollArea;
-    KCanvas *m_canvas;
+    QPushButton *m_ellipseButton;
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox;
     QWidget *m_EditCanvasWidth;
@@ -83,12 +72,24 @@ public:
     QLabel *m_widthLabel_16;
     QPushButton *m_setShapeColorButton;
     QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_4;
+    QToolButton *m_cleanCanvasBtn;
+    QSpacerItem *horizontalSpacer_2;
+    QToolButton *m_exportPNGBtn;
+    QSpacerItem *horizontalSpacer_3;
+    QToolButton *m_saveSVGBtn;
+    QSpacerItem *horizontalSpacer;
+    QToolButton *m_openSVGBtn;
+    QSpacerItem *horizontalSpacer_5;
+    QScrollArea *scrollArea;
+    KCanvas *m_canvas;
 
     void setupUi(QMainWindow *KSVGEditorClass)
     {
         if (KSVGEditorClass->objectName().isEmpty())
             KSVGEditorClass->setObjectName(QString::fromUtf8("KSVGEditorClass"));
-        KSVGEditorClass->resize(1135, 846);
+        KSVGEditorClass->resize(1129, 830);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/images/LOGO.png"), QSize(), QIcon::Normal, QIcon::Off);
         KSVGEditorClass->setWindowIcon(icon);
@@ -103,98 +104,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalSpacer_4 = new QSpacerItem(65, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_4);
-
-        m_cleanCanvasBtn = new QToolButton(centralWidget);
-        m_cleanCanvasBtn->setObjectName(QString::fromUtf8("m_cleanCanvasBtn"));
-        QFont font;
-        font.setPointSize(11);
-        m_cleanCanvasBtn->setFont(font);
-        m_cleanCanvasBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
-"    background: rgb(0, 0, 0);\n"
-"    border: none;\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"QToolButton:hover\n"
-"{\n"
-"	background-color: rgb(255, 0, 0);\n"
-"}\n"
-""));
-
-        horizontalLayout_2->addWidget(m_cleanCanvasBtn);
-
-        horizontalSpacer_2 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_2);
-
-        m_exportPNGBtn = new QToolButton(centralWidget);
-        m_exportPNGBtn->setObjectName(QString::fromUtf8("m_exportPNGBtn"));
-        m_exportPNGBtn->setFont(font);
-        m_exportPNGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
-"    background: rgb(0, 0, 0);\n"
-"    border: none;\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"QToolButton:hover\n"
-"{\n"
-"	background-color: rgb(255, 0, 0);\n"
-"}\n"
-""));
-
-        horizontalLayout_2->addWidget(m_exportPNGBtn);
-
-        horizontalSpacer_3 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
-
-        m_saveSVGBtn = new QToolButton(centralWidget);
-        m_saveSVGBtn->setObjectName(QString::fromUtf8("m_saveSVGBtn"));
-        m_saveSVGBtn->setFont(font);
-        m_saveSVGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
-"    background: rgb(0, 0, 0);\n"
-"    border: none;\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"QToolButton:hover\n"
-"{\n"
-"	background-color: rgb(255, 0, 0);\n"
-"}\n"
-""));
-
-        horizontalLayout_2->addWidget(m_saveSVGBtn);
-
-        horizontalSpacer = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer);
-
-        m_openSVGBtn = new QToolButton(centralWidget);
-        m_openSVGBtn->setObjectName(QString::fromUtf8("m_openSVGBtn"));
-        m_openSVGBtn->setFont(font);
-        m_openSVGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
-"    background: rgb(0, 0, 0);\n"
-"    border: none;\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"QToolButton:hover\n"
-"{\n"
-"	background-color: rgb(255, 0, 0);\n"
-"}\n"
-""));
-
-        horizontalLayout_2->addWidget(m_openSVGBtn);
-
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_5);
-
-
-        gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 3);
-
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -401,29 +310,13 @@ public:
 
         verticalLayout->addWidget(m_pentagramButton);
 
+        m_ellipseButton = new QPushButton(centralWidget);
+        m_ellipseButton->setObjectName(QString::fromUtf8("m_ellipseButton"));
+
+        verticalLayout->addWidget(m_ellipseButton);
+
 
         gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
-
-        scrollArea = new QScrollArea(centralWidget);
-        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        scrollArea->setMinimumSize(QSize(650, 650));
-        scrollArea->setStyleSheet(QString::fromUtf8("QScrollArea\n"
-"{\n"
-"	background-color: rgb(63, 63, 60);\n"
-"	border: 0;\n"
-"}"));
-        scrollArea->setWidgetResizable(false);
-        scrollArea->setAlignment(Qt::AlignCenter);
-        m_canvas = new KCanvas();
-        m_canvas->setObjectName(QString::fromUtf8("m_canvas"));
-        m_canvas->setGeometry(QRect(58, 82, 600, 600));
-        m_canvas->setStyleSheet(QString::fromUtf8("KCanvas\n"
-"{\n"
-"	background-color: rgb(255, 255, 255);\n"
-"}"));
-        scrollArea->setWidget(m_canvas);
-
-        gridLayout->addWidget(scrollArea, 1, 1, 1, 1);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
@@ -455,11 +348,11 @@ public:
         m_canvasWidth = new QSpinBox(m_EditCanvasWidth);
         m_canvasWidth->setObjectName(QString::fromUtf8("m_canvasWidth"));
         m_canvasWidth->setGeometry(QRect(10, 40, 111, 71));
-        QFont font1;
-        font1.setPointSize(16);
-        font1.setBold(true);
-        font1.setWeight(75);
-        m_canvasWidth->setFont(font1);
+        QFont font;
+        font.setPointSize(16);
+        font.setBold(true);
+        font.setWeight(75);
+        m_canvasWidth->setFont(font);
         m_canvasWidth->setStyleSheet(QString::fromUtf8("color: rgb(0, 170, 255);\n"
 "border-width:0;\n"
 "border-style:outset"));
@@ -481,7 +374,7 @@ public:
         m_canvasHeight = new QSpinBox(m_EditCanvasWidth_2);
         m_canvasHeight->setObjectName(QString::fromUtf8("m_canvasHeight"));
         m_canvasHeight->setGeometry(QRect(10, 40, 111, 71));
-        m_canvasHeight->setFont(font1);
+        m_canvasHeight->setFont(font);
         m_canvasHeight->setStyleSheet(QString::fromUtf8("color: rgb(0, 170, 255);\n"
 "border-width:0;\n"
 "border-style:outset"));
@@ -504,7 +397,7 @@ public:
         m_canvasZoom = new QDoubleSpinBox(m_EditCanvasWidth_3);
         m_canvasZoom->setObjectName(QString::fromUtf8("m_canvasZoom"));
         m_canvasZoom->setGeometry(QRect(20, 40, 101, 71));
-        m_canvasZoom->setFont(font1);
+        m_canvasZoom->setFont(font);
         m_canvasZoom->setStyleSheet(QString::fromUtf8("color: rgb(0, 170, 255);\n"
 "border-width:0;\n"
 "border-style:outset"));
@@ -557,7 +450,7 @@ public:
         m_shapeBorderWidth->setObjectName(QString::fromUtf8("m_shapeBorderWidth"));
         m_shapeBorderWidth->setEnabled(false);
         m_shapeBorderWidth->setGeometry(QRect(10, 40, 111, 71));
-        m_shapeBorderWidth->setFont(font1);
+        m_shapeBorderWidth->setFont(font);
         m_shapeBorderWidth->setStyleSheet(QString::fromUtf8("color: rgb(0, 170, 255);\n"
 "border-width:0;\n"
 "border-style:outset"));
@@ -622,7 +515,120 @@ public:
         verticalLayout_2->addItem(verticalSpacer);
 
 
-        gridLayout->addLayout(verticalLayout_2, 1, 2, 1, 1);
+        gridLayout->addLayout(verticalLayout_2, 1, 3, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer_4 = new QSpacerItem(65, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_4);
+
+        m_cleanCanvasBtn = new QToolButton(centralWidget);
+        m_cleanCanvasBtn->setObjectName(QString::fromUtf8("m_cleanCanvasBtn"));
+        QFont font1;
+        font1.setPointSize(11);
+        m_cleanCanvasBtn->setFont(font1);
+        m_cleanCanvasBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
+"    background: rgb(0, 0, 0);\n"
+"    border: none;\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QToolButton:hover\n"
+"{\n"
+"	background-color: rgb(255, 0, 0);\n"
+"}\n"
+""));
+
+        horizontalLayout_2->addWidget(m_cleanCanvasBtn);
+
+        horizontalSpacer_2 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+        m_exportPNGBtn = new QToolButton(centralWidget);
+        m_exportPNGBtn->setObjectName(QString::fromUtf8("m_exportPNGBtn"));
+        m_exportPNGBtn->setFont(font1);
+        m_exportPNGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
+"    background: rgb(0, 0, 0);\n"
+"    border: none;\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QToolButton:hover\n"
+"{\n"
+"	background-color: rgb(255, 0, 0);\n"
+"}\n"
+""));
+
+        horizontalLayout_2->addWidget(m_exportPNGBtn);
+
+        horizontalSpacer_3 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+        m_saveSVGBtn = new QToolButton(centralWidget);
+        m_saveSVGBtn->setObjectName(QString::fromUtf8("m_saveSVGBtn"));
+        m_saveSVGBtn->setFont(font1);
+        m_saveSVGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
+"    background: rgb(0, 0, 0);\n"
+"    border: none;\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QToolButton:hover\n"
+"{\n"
+"	background-color: rgb(255, 0, 0);\n"
+"}\n"
+""));
+
+        horizontalLayout_2->addWidget(m_saveSVGBtn);
+
+        horizontalSpacer = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        m_openSVGBtn = new QToolButton(centralWidget);
+        m_openSVGBtn->setObjectName(QString::fromUtf8("m_openSVGBtn"));
+        m_openSVGBtn->setFont(font1);
+        m_openSVGBtn->setStyleSheet(QString::fromUtf8("QToolButton {\n"
+"    background: rgb(0, 0, 0);\n"
+"    border: none;\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"QToolButton:hover\n"
+"{\n"
+"	background-color: rgb(255, 0, 0);\n"
+"}\n"
+""));
+
+        horizontalLayout_2->addWidget(m_openSVGBtn);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_5);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 4);
+
+        scrollArea = new QScrollArea(centralWidget);
+        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        scrollArea->setMinimumSize(QSize(650, 650));
+        scrollArea->setStyleSheet(QString::fromUtf8("QScrollArea\n"
+"{\n"
+"	background-color: rgb(63, 63, 60);\n"
+"	border: 0;\n"
+"}"));
+        scrollArea->setWidgetResizable(false);
+        scrollArea->setAlignment(Qt::AlignCenter);
+        m_canvas = new KCanvas();
+        m_canvas->setObjectName(QString::fromUtf8("m_canvas"));
+        m_canvas->setGeometry(QRect(53, 91, 600, 600));
+        m_canvas->setStyleSheet(QString::fromUtf8("KCanvas\n"
+"{\n"
+"	background-color: rgb(255, 255, 255);\n"
+"}"));
+        scrollArea->setWidget(m_canvas);
+
+        gridLayout->addWidget(scrollArea, 1, 1, 1, 1);
 
         KSVGEditorClass->setCentralWidget(centralWidget);
 
@@ -634,22 +640,6 @@ public:
     void retranslateUi(QMainWindow *KSVGEditorClass)
     {
         KSVGEditorClass->setWindowTitle(QCoreApplication::translate("KSVGEditorClass", "SVG\347\274\226\350\276\221\345\231\250", nullptr));
-        m_cleanCanvasBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\346\270\205\347\251\272\347\224\273\345\270\203", nullptr));
-#if QT_CONFIG(shortcut)
-        m_cleanCanvasBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+N", nullptr));
-#endif // QT_CONFIG(shortcut)
-        m_exportPNGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\345\257\274\345\207\272PNG", nullptr));
-#if QT_CONFIG(shortcut)
-        m_exportPNGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+E", nullptr));
-#endif // QT_CONFIG(shortcut)
-        m_saveSVGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\344\277\235\345\255\230SVG", nullptr));
-#if QT_CONFIG(shortcut)
-        m_saveSVGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+S", nullptr));
-#endif // QT_CONFIG(shortcut)
-        m_openSVGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\346\211\223\345\274\200SVG", nullptr));
-#if QT_CONFIG(shortcut)
-        m_openSVGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+O", nullptr));
-#endif // QT_CONFIG(shortcut)
         m_selectButton->setText(QString());
         m_lineButton->setText(QString());
         m_circleButton->setText(QString());
@@ -657,6 +647,7 @@ public:
         m_pentagonButton->setText(QString());
         m_hexagonButton->setText(QString());
         m_pentagramButton->setText(QString());
+        m_ellipseButton->setText(QCoreApplication::translate("KSVGEditorClass", "PushButton", nullptr));
         groupBox->setTitle(QCoreApplication::translate("KSVGEditorClass", "\347\224\273\345\270\203\345\217\202\346\225\260\350\256\276\347\275\256", nullptr));
         m_widthLabel->setText(QCoreApplication::translate("KSVGEditorClass", "\347\224\273\345\270\203\345\256\275\345\272\246", nullptr));
         m_canvasWidth->setSpecialValueText(QString());
@@ -673,6 +664,22 @@ public:
         m_setShapeBorderColorButton->setText(QString());
         m_widthLabel_16->setText(QCoreApplication::translate("KSVGEditorClass", "\345\241\253\345\205\205\351\242\234\350\211\262", nullptr));
         m_setShapeColorButton->setText(QString());
+        m_cleanCanvasBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\346\270\205\347\251\272\347\224\273\345\270\203", nullptr));
+#if QT_CONFIG(shortcut)
+        m_cleanCanvasBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+N", nullptr));
+#endif // QT_CONFIG(shortcut)
+        m_exportPNGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\345\257\274\345\207\272PNG", nullptr));
+#if QT_CONFIG(shortcut)
+        m_exportPNGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+E", nullptr));
+#endif // QT_CONFIG(shortcut)
+        m_saveSVGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\344\277\235\345\255\230SVG", nullptr));
+#if QT_CONFIG(shortcut)
+        m_saveSVGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        m_openSVGBtn->setText(QCoreApplication::translate("KSVGEditorClass", "\346\211\223\345\274\200SVG", nullptr));
+#if QT_CONFIG(shortcut)
+        m_openSVGBtn->setShortcut(QCoreApplication::translate("KSVGEditorClass", "Ctrl+O", nullptr));
+#endif // QT_CONFIG(shortcut)
     } // retranslateUi
 
 };

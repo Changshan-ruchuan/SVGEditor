@@ -1,6 +1,7 @@
 #include "kcanvas.h"
 #include "kshapefactory.h"
 #include "kshapeparameter.h"
+#include <QWheelEvent>
 
 KCanvas::KCanvas(QWidget *parent)
 	: QWidget(parent)
@@ -19,12 +20,14 @@ KCanvas::KCanvas(QWidget *parent)
 	setAttribute(Qt::WA_StyledBackground, true);
 	setMouseTracking(true);
 	setFocusPolicy(Qt::ClickFocus);
+	setFocusPolicy(Qt::StrongFocus); // 关键：允许接收键盘焦点
 	this->setAttribute(Qt::WA_Hover, true);
 	this->installEventFilter(this);
 }
 
 KCanvas::~KCanvas()
 {
+	if (m_copiedShape) delete m_copiedShape;
 	qDeleteAll(*m_pShapeList);
 	delete m_pShapeList;
 }
@@ -263,7 +266,7 @@ void KCanvas::mouseReleaseEvent(QMouseEvent *event)
 		if (event->button() == Qt::LeftButton)
 		{
 			m_isLPress = false;
-			m_enableSelect = false;
+			//m_enableSelect = false;
 		}
 			
 	}
@@ -287,6 +290,76 @@ void KCanvas::mouseReleaseEvent(QMouseEvent *event)
 	}
 }
 
+void KCanvas::wheelEvent(QWheelEvent* event)
+{
+	// 获取滚轮滚动的角度（正值为向上滚动，负值为向下）
+	qint16 delta = event->angleDelta().y();
+	if (delta == 0) {
+		event->ignore();
+		return;
+	}
+
+	// 当前全局缩放比例（从单例类获取）
+	qreal currentScale = KShapeParameter::getInstance()->getCanvasScale();
+
+	// 计算新的缩放比例（向上滚动放大10%，向下缩小10%）
+	qreal scaleFactor = (delta > 0) ? 1.1 : 0.9;
+	qreal newScale = currentScale * scaleFactor;
+
+	// 限制缩放范围（0.1倍到5倍）
+	newScale = qBound(0.1, newScale, 5.0);
+
+	// 发送缩放请求信号（传递新的缩放比例）
+	emit canvasZoomRequested(newScale);
+
+	event->accept();
+}
+
+void KCanvas::keyPressEvent(QKeyEvent* event)
+{
+	if (event->key() == Qt::Key_Delete)
+	{
+		// 检查条件：图形存在、处于选择模式、允许选择
+		if (m_pCurrentShape
+			&& m_currentDrawFlag == KDrawFlag::MouseDrawFlag
+			&& m_enableSelect)
+		{
+			// 从列表中移除图形
+			if (m_pShapeList->contains(m_pCurrentShape))
+			{
+				m_pShapeList->removeOne(m_pCurrentShape);
+			}
+
+			// 释放内存并清空指针
+			delete m_pCurrentShape;
+			m_pCurrentShape = nullptr;
+
+			// 同步全局参数
+			KShapeParameter::getInstance()->setCurrentShape(nullptr);
+
+			// 更新选择状态
+			m_isSelected = false;
+			m_enableSelect = false;  // 仅在删除后禁用选择
+
+			// 通知主界面更新控件状态
+			emit shapeSelected(false);
+
+			// 刷新画布
+			update();
+		}
+	}
+	else if (event->modifiers() == Qt::ControlModifier)
+	{
+		if (event->key() == Qt::Key_C) {        // Ctrl+C 复制
+			copySelectedShape();
+		}
+		else if (event->key() == Qt::Key_V) { // Ctrl+V 粘贴
+			pasteCopiedShape();
+		}
+	}
+	// 调用基类事件处理（保留其他键盘事件）
+	QWidget::keyPressEvent(event);
+}
 
 KShape *KCanvas::getCurrentShape(QPointF pos)
 {
@@ -348,5 +421,54 @@ void KCanvas::cleanCanvas()
 {
 	m_pShapeList->clear();
 	m_isCleanCanvas = true;
+	update();
+}
+
+// 复制选中图形的属性
+void KCanvas::copySelectedShape() {
+	if (!m_pCurrentShape || m_currentDrawFlag != KDrawFlag::MouseDrawFlag) return;
+
+	// 释放之前的复制对象（避免内存泄漏）
+	if (m_copiedShape) delete m_copiedShape;
+
+	// 根据当前图形类型创建新实例（通过工厂类）
+	KShapeType type = m_pCurrentShape->getShapeType();
+	m_copiedShape = KShapeFactory::createShape(type);
+	if (!m_copiedShape) return;
+
+	// 复制所有属性
+	m_copiedShape->setStartPoint(m_pCurrentShape->getStartPoint());
+	m_copiedShape->setEndPoint(m_pCurrentShape->getEndPoint());
+	m_copiedShape->setBorderWidth(m_pCurrentShape->getBorderWidth());
+	m_copiedShape->setBorderStyle(m_pCurrentShape->getBorderStyle());
+	m_copiedShape->setBorderColor(m_pCurrentShape->getBorderColor());
+	m_copiedShape->setShapeColor(m_pCurrentShape->getShapeColor());
+	m_copiedShape->setShapeScale(m_pCurrentShape->getShapeScale());
+}
+
+
+// 粘贴复制的图形
+void KCanvas::pasteCopiedShape() {
+	if (!m_copiedShape) return;
+
+	// 创建粘贴的新图形（通过工厂类）
+	KShape* pastedShape = KShapeFactory::createShape(m_copiedShape->getShapeType());
+	if (!pastedShape) return;
+
+	// 复制属性（与原图形相同）
+	pastedShape->setStartPoint(m_copiedShape->getStartPoint());
+	pastedShape->setEndPoint(m_copiedShape->getEndPoint());
+	pastedShape->setBorderWidth(m_copiedShape->getBorderWidth());
+	pastedShape->setBorderStyle(m_copiedShape->getBorderStyle());
+	pastedShape->setBorderColor(m_copiedShape->getBorderColor());
+	pastedShape->setShapeColor(m_copiedShape->getShapeColor());
+	pastedShape->setShapeScale(m_copiedShape->getShapeScale());
+
+	// 偏移位置（避免与原图形完全重叠）
+	QPointF offset(10, 10); // 可调整偏移量
+	pastedShape->move(offset);
+
+	// 添加到画布并刷新
+	m_pShapeList->append(pastedShape);
 	update();
 }

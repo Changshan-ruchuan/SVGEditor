@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
-    <height>846</height>
+    <width>1129</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,195 +26,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="3">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>65</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="m_cleanCanvasBtn">
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-    background: rgb(0, 0, 0);
-    border: none;
-    color: rgb(255, 255, 255);
-}
-QToolButton:hover
-{
-	background-color: rgb(255, 0, 0);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>清空画布</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+N</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>25</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="m_exportPNGBtn">
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-    background: rgb(0, 0, 0);
-    border: none;
-    color: rgb(255, 255, 255);
-}
-QToolButton:hover
-{
-	background-color: rgb(255, 0, 0);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>导出PNG</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+E</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>25</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="m_saveSVGBtn">
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-    background: rgb(0, 0, 0);
-    border: none;
-    color: rgb(255, 255, 255);
-}
-QToolButton:hover
-{
-	background-color: rgb(255, 0, 0);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>保存SVG</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+S</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>25</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="m_openSVGBtn">
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton {
-    background: rgb(0, 0, 0);
-    border: none;
-    color: rgb(255, 255, 255);
-}
-QToolButton:hover
-{
-	background-color: rgb(255, 0, 0);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>打开SVG</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+O</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
     <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -525,48 +336,16 @@ QToolButton:checked
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="m_ellipseButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="1" column="1">
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="minimumSize">
-       <size>
-        <width>650</width>
-        <height>650</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QScrollArea
-{
-	background-color: rgb(63, 63, 60);
-	border: 0;
-}</string>
-      </property>
-      <property name="widgetResizable">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="KCanvas" name="m_canvas">
-       <property name="geometry">
-        <rect>
-         <x>58</x>
-         <y>82</y>
-         <width>600</width>
-         <height>600</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">KCanvas
-{
-	background-color: rgb(255, 255, 255);
-}</string>
-       </property>
-      </widget>
-     </widget>
-    </item>
-    <item row="1" column="2">
+    <item row="1" column="3">
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QGroupBox" name="groupBox">
@@ -1172,6 +951,234 @@ border:none;</string>
        </spacer>
       </item>
      </layout>
+    </item>
+    <item row="0" column="0" colspan="4">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>65</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="m_cleanCanvasBtn">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background: rgb(0, 0, 0);
+    border: none;
+    color: rgb(255, 255, 255);
+}
+QToolButton:hover
+{
+	background-color: rgb(255, 0, 0);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>清空画布</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+N</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>25</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="m_exportPNGBtn">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background: rgb(0, 0, 0);
+    border: none;
+    color: rgb(255, 255, 255);
+}
+QToolButton:hover
+{
+	background-color: rgb(255, 0, 0);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>导出PNG</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+E</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>25</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="m_saveSVGBtn">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background: rgb(0, 0, 0);
+    border: none;
+    color: rgb(255, 255, 255);
+}
+QToolButton:hover
+{
+	background-color: rgb(255, 0, 0);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>保存SVG</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+S</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>25</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="m_openSVGBtn">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+    background: rgb(0, 0, 0);
+    border: none;
+    color: rgb(255, 255, 255);
+}
+QToolButton:hover
+{
+	background-color: rgb(255, 0, 0);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>打开SVG</string>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+O</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="minimumSize">
+       <size>
+        <width>650</width>
+        <height>650</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QScrollArea
+{
+	background-color: rgb(63, 63, 60);
+	border: 0;
+}</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <widget class="KCanvas" name="m_canvas">
+       <property name="geometry">
+        <rect>
+         <x>53</x>
+         <y>91</y>
+         <width>600</width>
+         <height>600</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">KCanvas
+{
+	background-color: rgb(255, 255, 255);
+}</string>
+       </property>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>

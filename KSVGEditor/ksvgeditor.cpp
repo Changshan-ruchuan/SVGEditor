@@ -1,4 +1,5 @@
 #include "ksvgeditor.h"
+#include <QScrollBar>
 
 KSVGEditor::KSVGEditor(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +20,8 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     (void)connect(ui.m_pentagonButton, &QToolButton::clicked, this, &KSVGEditor::onPentagonButtonClicked);
     (void)connect(ui.m_hexagonButton, &QToolButton::clicked, this, &KSVGEditor::onHexagonButtonClicked);
     (void)connect(ui.m_pentagramButton, &QToolButton::clicked, this, &KSVGEditor::onPentagramButtonClicked);
+    (void)connect(ui.m_canvas, &KCanvas::canvasZoomRequested, this, &KSVGEditor::onZoomCanvas);
+    (void)connect(ui.m_ellipseButton, &QToolButton::clicked, this, &KSVGEditor::onEllipseButtonClicked);
 
     (void)connect(ui.m_canvasWidth, 
         QOverload<int>::of(&QSpinBox::valueChanged), 
@@ -140,6 +143,11 @@ void KSVGEditor::onPentagramButtonClicked()
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::PentagramDrawFlag);
 }
 
+// 椭圆按钮点击事件：设置当前绘制标志为椭圆
+void KSVGEditor::onEllipseButtonClicked()
+{
+    KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::EllipseDrawFlag);
+}
 
 void KSVGEditor::onSetCanvasWidth(int width)
 {
@@ -155,9 +163,32 @@ void KSVGEditor::onSetCanvasHeight(int height)
 
 void KSVGEditor::onZoomCanvas(qreal scale)
 {
+    // 保存当前滚动条位置和画布大小
+    QScrollBar* hbar = ui.scrollArea->horizontalScrollBar();
+    QScrollBar* vbar = ui.scrollArea->verticalScrollBar();
+    QPoint oldScrollPos(hbar->value(), vbar->value());
+    QSize oldCanvasSize = ui.m_canvas->size();
+
+    // 更新全局缩放参数（单例类）
     KShapeParameter::getInstance()->setShapeScale(scale);
     KShapeParameter::getInstance()->setCanvasScale(scale);
+
+    // 调用画布的缩放函数（调整画布大小和图形）
     ui.m_canvas->zoomCanvas(scale);
+
+    // 计算新的滚动条位置（保持鼠标滚轮位置不变）
+    QSize newCanvasSize = ui.m_canvas->size();
+    qreal scaleRatio = scale / m_currentCanvasScale; // 新旧缩放比例的比值
+
+    // 调整滚动条位置，使鼠标滚轮位置在缩放后保持大致相同
+    int newHPos = qRound(oldScrollPos.x() * scaleRatio);
+    int newVPos = qRound(oldScrollPos.y() * scaleRatio);
+    hbar->setValue(qBound(0, newHPos, newCanvasSize.width() - ui.scrollArea->viewport()->width()));
+    vbar->setValue(qBound(0, newVPos, newCanvasSize.height() - ui.scrollArea->viewport()->height()));
+
+    // 更新当前缩放比例记录和UI控件显示
+    m_currentCanvasScale = scale;
+    ui.m_canvasZoom->setValue(scale); // 假设m_canvasZoom是缩放比例的QDoubleSpinBox控件
 }
 
 

@@ -13,7 +13,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QMessageBox>
-
+#include <QKeyEvent>
 #include "kshape.h"
 
 
@@ -47,6 +47,7 @@ public:
 		PentagonDrawFlag,	
 		HexagonDrawFlag,	
 		PentagramDrawFlag,	
+		EllipseDrawFlag,         // 新增：椭圆绘制
 	};
 
 	explicit KCanvas(QWidget *parent = Q_NULLPTR);
@@ -57,6 +58,11 @@ public:
 	virtual void mousePressEvent(QMouseEvent *event) override;	
 	virtual void mouseMoveEvent(QMouseEvent *event) override;	
 	virtual void mouseReleaseEvent(QMouseEvent *event) override;	
+	virtual void wheelEvent(QWheelEvent* event) override;
+	virtual void keyPressEvent(QKeyEvent* event) override; // 声明键盘事件处理函数
+	virtual void copySelectedShape();         // 复制选中图形
+	virtual void pasteCopiedShape();          // 粘贴复制的图形
+	KShape* m_copiedShape = nullptr; // 保存复制的图形实例
 	KShape *getCurrentShape(QPointF pos); 
 	QList<KShape*> *getShapeList();
 
@@ -66,8 +72,9 @@ public:
 
 	int getCanvasWidth();	
 	int getCanvasHeight();	
-
 	void cleanCanvas();	
+
+
 
 signals:
 	void currentShapeBorderWidth(int width);
@@ -75,6 +82,7 @@ signals:
 	void currntShapeBorderColor(QRgb color);
 	void currntShapeColor(QRgb color);
 	void shapeSelected(bool isSelected);
+	void canvasZoomRequested(qreal scale);
 
 private:
 	KShape *m_pCurrentShape = Q_NULLPTR;	
