@@ -43,7 +43,6 @@ public:
     QToolButton *m_pentagonButton;
     QToolButton *m_hexagonButton;
     QToolButton *m_pentagramButton;
-    QPushButton *m_ellipseButton;
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox;
     QWidget *m_EditCanvasWidth;
@@ -309,11 +308,6 @@ public:
         m_pentagramButton->setAutoExclusive(true);
 
         verticalLayout->addWidget(m_pentagramButton);
-
-        m_ellipseButton = new QPushButton(centralWidget);
-        m_ellipseButton->setObjectName(QString::fromUtf8("m_ellipseButton"));
-
-        verticalLayout->addWidget(m_ellipseButton);
 
 
         gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
@@ -621,7 +615,7 @@ public:
         scrollArea->setAlignment(Qt::AlignCenter);
         m_canvas = new KCanvas();
         m_canvas->setObjectName(QString::fromUtf8("m_canvas"));
-        m_canvas->setGeometry(QRect(53, 91, 600, 600));
+        m_canvas->setGeometry(QRect(67, 92, 600, 600));
         m_canvas->setStyleSheet(QString::fromUtf8("KCanvas\n"
 "{\n"
 "	background-color: rgb(255, 255, 255);\n"
@@ -647,7 +641,6 @@ public:
         m_pentagonButton->setText(QString());
         m_hexagonButton->setText(QString());
         m_pentagramButton->setText(QString());
-        m_ellipseButton->setText(QCoreApplication::translate("KSVGEditorClass", "PushButton", nullptr));
         groupBox->setTitle(QCoreApplication::translate("KSVGEditorClass", "\347\224\273\345\270\203\345\217\202\346\225\260\350\256\276\347\275\256", nullptr));
         m_widthLabel->setText(QCoreApplication::translate("KSVGEditorClass", "\347\224\273\345\270\203\345\256\275\345\272\246", nullptr));
         m_canvasWidth->setSpecialValueText(QString());

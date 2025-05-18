@@ -336,13 +336,6 @@ QToolButton:checked
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="m_ellipseButton">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item row="1" column="3">
@@ -1165,8 +1158,8 @@ QToolButton:hover
       <widget class="KCanvas" name="m_canvas">
        <property name="geometry">
         <rect>
-         <x>53</x>
-         <y>91</y>
+         <x>67</x>
+         <y>92</y>
          <width>600</width>
          <height>600</height>
         </rect>

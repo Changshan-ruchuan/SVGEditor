@@ -21,7 +21,6 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     (void)connect(ui.m_hexagonButton, &QToolButton::clicked, this, &KSVGEditor::onHexagonButtonClicked);
     (void)connect(ui.m_pentagramButton, &QToolButton::clicked, this, &KSVGEditor::onPentagramButtonClicked);
     (void)connect(ui.m_canvas, &KCanvas::canvasZoomRequested, this, &KSVGEditor::onZoomCanvas);
-    (void)connect(ui.m_ellipseButton, &QToolButton::clicked, this, &KSVGEditor::onEllipseButtonClicked);
 
     (void)connect(ui.m_canvasWidth, QOverload<int>::of(&QSpinBox::valueChanged), this, &KSVGEditor::onSetCanvasWidth);
     (void)connect(ui.m_canvasHeight, QOverload<int>::of(&QSpinBox::valueChanged), this, &KSVGEditor::onSetCanvasHeight);

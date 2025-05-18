@@ -1,0 +1,43 @@
+﻿  Reading Qt configuration (D:/Qt/Qt5.14.2/5.14.2/msvc2017_64/bin/qmake)
+  uic ksvgeditor.ui
+  rcc ksvgeditor.qrc
+  moc ksvgeditor.h
+  moc kborderstylebutton.h
+  moc kcanvas.h
+  moc kcircle.h
+  moc khexagon.h
+  moc kline.h
+  moc kpentagon.h
+  moc kpentagram.h
+  moc krect.h
+  moc kshape.h
+  moc kshapefactory.h
+  moc kellipse.h
+  kborderstylebutton.cpp
+  kcanvas.cpp
+  kcircle.cpp
+  kellipse.cpp
+  khexagon.cpp
+  kline.cpp
+  kpentagon.cpp
+  kpentagram.cpp
+  krect.cpp
+  kshape.cpp
+  kshapefactory.cpp
+  kshapeparameter.cpp
+  ksvgeditor.cpp
+  main.cpp
+  qrc_ksvgeditor.cpp
+  moc_ksvgeditor.cpp
+  moc_kborderstylebutton.cpp
+  moc_kcanvas.cpp
+  moc_kcircle.cpp
+  moc_khexagon.cpp
+  moc_kline.cpp
+  moc_kpentagon.cpp
+  moc_kpentagram.cpp
+  moc_krect.cpp
+  moc_kshape.cpp
+  moc_kshapefactory.cpp
+  moc_kellipse.cpp
+  KSVGEditor.vcxproj -> D:\Code\week\test\SVGEditor\x64\Release\KSVGEditor.exe

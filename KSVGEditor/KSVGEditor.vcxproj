@@ -34,8 +34,8 @@
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>5.9.3_msvc2017_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>Qt5.14.2_64</QtInstall>
+    <QtModules>core;xml;gui;svg;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -59,6 +59,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,10 +143,10 @@
     <QtMoc Include="kshapefactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ui_ksvgeditor.h" />
     <QtMoc Include="kellipse.h" />
     <ClInclude Include="kshapeparameter.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ui_ksvgeditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KSVGEditor.rc" />
