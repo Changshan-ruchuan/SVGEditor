@@ -26,7 +26,7 @@ KShape *KShapeFactory::createShape(KCanvas::KDrawFlag drawFlag)
 	case KCanvas::KDrawFlag::PentagramDrawFlag:
 		return new KPentagram;
 	case KCanvas::KDrawFlag::EllipseDrawFlag:   
-		return new KEllipse;  // ĞÂÔöÍÖÔ²
+		return new KEllipse;  
 	default:
 		break;
 	}

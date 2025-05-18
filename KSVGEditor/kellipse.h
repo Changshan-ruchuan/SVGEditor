@@ -16,8 +16,6 @@ class KEllipse : public KShape
 public:
     explicit KEllipse(QObject* parent = nullptr);
     ~KEllipse();
-
-    // ÖØÐ´¸¸Àà´¿Ðéº¯Êý
     void drawShape(QPaintDevice* parent = nullptr) override;
     virtual KShapeType getShapeType() override;
 };

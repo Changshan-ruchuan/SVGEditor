@@ -21,16 +21,13 @@ void KPentagram::drawShape(QPaintDevice *parent)
     Qt::PenStyle borderStyle = getBorderStyle();
     QColor borderColor = QColor(getBorderColor());
     QColor shapeColor = QColor(getShapeColor());
-
     painter.setPen(QPen(borderColor, width, borderStyle));
     painter.setBrush(QBrush(shapeColor));
-
     QRectF shapeRect = getShapeRect();
     qreal centerX = shapeRect.center().x();
     qreal centerY = shapeRect.center().y();
     qreal outerRadius = qMin(shapeRect.width(), shapeRect.height()) / 2.0;
     qreal innerRadius = outerRadius / 2.5;
-
     QPointF points[10];
     for (int i = 0; i < 10; ++i) 
     {
@@ -39,7 +36,6 @@ void KPentagram::drawShape(QPaintDevice *parent)
         points[i] = QPointF(centerX + radius * cos(angle - M_PI / 2.0),
             centerY + radius * sin(angle - M_PI / 2.0));
     }
-
     painter.drawPolygon(points, 10);
 }
 

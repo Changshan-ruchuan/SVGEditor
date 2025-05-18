@@ -23,40 +23,17 @@ KSVGEditor::KSVGEditor(QWidget *parent)
     (void)connect(ui.m_canvas, &KCanvas::canvasZoomRequested, this, &KSVGEditor::onZoomCanvas);
     (void)connect(ui.m_ellipseButton, &QToolButton::clicked, this, &KSVGEditor::onEllipseButtonClicked);
 
-    (void)connect(ui.m_canvasWidth, 
-        QOverload<int>::of(&QSpinBox::valueChanged), 
-        this, 
-        &KSVGEditor::onSetCanvasWidth);
-    (void)connect(ui.m_canvasHeight, 
-        QOverload<int>::of(&QSpinBox::valueChanged), 
-        this, 
-        &KSVGEditor::onSetCanvasHeight);
-    (void)connect(ui.m_canvasZoom, 
-        QOverload<qreal>::of(&QDoubleSpinBox::valueChanged), 
-        this, 
-        &KSVGEditor::onZoomCanvas);
+    (void)connect(ui.m_canvasWidth, QOverload<int>::of(&QSpinBox::valueChanged), this, &KSVGEditor::onSetCanvasWidth);
+    (void)connect(ui.m_canvasHeight, QOverload<int>::of(&QSpinBox::valueChanged), this, &KSVGEditor::onSetCanvasHeight);
+    (void)connect(ui.m_canvasZoom, QOverload<qreal>::of(&QDoubleSpinBox::valueChanged), this, &KSVGEditor::onZoomCanvas);
     (void)connect(ui.m_setCanvasColorButton, &QPushButton::pressed, this, &KSVGEditor::setCanvasColor);
-
-    (void)connect(ui.m_shapeBorderWidth,
-        QOverload<int>::of(&QSpinBox::valueChanged),
-        this,
-        &KSVGEditor::onSetShapeBorderWidth);
-    (void)connect(ui.m_shapeBorderStyle, 
-        &KBorderStyleButton::setShapePen, 
-        this, 
-        &KSVGEditor::onSetShapeBorderStyle);
+    (void)connect(ui.m_shapeBorderWidth, QOverload<int>::of(&QSpinBox::valueChanged), this, &KSVGEditor::onSetShapeBorderWidth);
+    (void)connect(ui.m_shapeBorderStyle, &KBorderStyleButton::setShapePen, this, &KSVGEditor::onSetShapeBorderStyle);
     (void)connect(ui.m_setShapeBorderColorButton, &QPushButton::pressed, this, &KSVGEditor::onSetShapeBorderColor);
     (void)connect(ui.m_setShapeColorButton, &QPushButton::pressed, this, &KSVGEditor::onSetShapeColor);
     (void)connect(ui.m_canvas, &KCanvas::currentShapeBorderWidth, this, &KSVGEditor::onSetBorderWidthSpinBoxValue);
-    (void)connect(ui.m_canvas, 
-        &KCanvas::currentShapeBorderStyle, 
-        ui.m_shapeBorderStyle, 
-        &KBorderStyleButton::setComBoxView);
-    (void)connect(ui.m_canvas, 
-        &KCanvas::currntShapeBorderColor, 
-        this, 
-        &KSVGEditor::onSetShapeBorderColorButtonColor);
-    (void)connect(ui.m_canvas, &KCanvas::currntShapeColor, this, &KSVGEditor::onSetShapeColorButtonColor);
+    (void)connect(ui.m_canvas, &KCanvas::currentShapeBorderStyle, ui.m_shapeBorderStyle, &KBorderStyleButton::setComBoxView);
+    (void)connect(ui.m_canvas, &KCanvas::currntShapeBorderColor, this, &KSVGEditor::onSetShapeBorderColorButtonColor);
     (void)connect(ui.m_canvas, &KCanvas::shapeSelected, this, &KSVGEditor::onIsSelectShape);
 }
 
@@ -73,8 +50,7 @@ void KSVGEditor::moveCanvasToCenter()
 void KSVGEditor::onCleanCanvasClicked()
 {
 	QMessageBox::StandardButton cleanReply;
-    cleanReply = QMessageBox::question(this, QStringLiteral("清空画布"), QStringLiteral("确定要清空画布吗"),
-        QMessageBox::Yes | QMessageBox::No);
+    cleanReply = QMessageBox::question(this, QStringLiteral("清空画布"), QStringLiteral("确定要清空画布吗"),QMessageBox::Yes | QMessageBox::No);
     if (cleanReply == QMessageBox::Yes)
     {
 		QMessageBox::StandardButton savePNGReply;
@@ -143,7 +119,7 @@ void KSVGEditor::onPentagramButtonClicked()
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::PentagramDrawFlag);
 }
 
-// 椭圆按钮点击事件：设置当前绘制标志为椭圆
+
 void KSVGEditor::onEllipseButtonClicked()
 {
     KShapeParameter::getInstance()->setDrawFlag(KCanvas::KDrawFlag::EllipseDrawFlag);
@@ -162,33 +138,22 @@ void KSVGEditor::onSetCanvasHeight(int height)
 
 
 void KSVGEditor::onZoomCanvas(qreal scale)
-{
-    // 保存当前滚动条位置和画布大小
+{   
     QScrollBar* hbar = ui.scrollArea->horizontalScrollBar();
     QScrollBar* vbar = ui.scrollArea->verticalScrollBar();
     QPoint oldScrollPos(hbar->value(), vbar->value());
     QSize oldCanvasSize = ui.m_canvas->size();
-
-    // 更新全局缩放参数（单例类）
     KShapeParameter::getInstance()->setShapeScale(scale);
     KShapeParameter::getInstance()->setCanvasScale(scale);
-
-    // 调用画布的缩放函数（调整画布大小和图形）
     ui.m_canvas->zoomCanvas(scale);
-
-    // 计算新的滚动条位置（保持鼠标滚轮位置不变）
     QSize newCanvasSize = ui.m_canvas->size();
-    qreal scaleRatio = scale / m_currentCanvasScale; // 新旧缩放比例的比值
-
-    // 调整滚动条位置，使鼠标滚轮位置在缩放后保持大致相同
+    qreal scaleRatio = scale / m_currentCanvasScale; 
     int newHPos = qRound(oldScrollPos.x() * scaleRatio);
     int newVPos = qRound(oldScrollPos.y() * scaleRatio);
     hbar->setValue(qBound(0, newHPos, newCanvasSize.width() - ui.scrollArea->viewport()->width()));
     vbar->setValue(qBound(0, newVPos, newCanvasSize.height() - ui.scrollArea->viewport()->height()));
-
-    // 更新当前缩放比例记录和UI控件显示
     m_currentCanvasScale = scale;
-    ui.m_canvasZoom->setValue(scale); // 假设m_canvasZoom是缩放比例的QDoubleSpinBox控件
+    ui.m_canvasZoom->setValue(scale); 
 }
 
 

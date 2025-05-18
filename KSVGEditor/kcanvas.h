@@ -47,7 +47,7 @@ public:
 		PentagonDrawFlag,	
 		HexagonDrawFlag,	
 		PentagramDrawFlag,	
-		EllipseDrawFlag,         // 新增：椭圆绘制
+		EllipseDrawFlag,         
 	};
 
 	explicit KCanvas(QWidget *parent = Q_NULLPTR);
@@ -59,10 +59,10 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *event) override;	
 	virtual void mouseReleaseEvent(QMouseEvent *event) override;	
 	virtual void wheelEvent(QWheelEvent* event) override;
-	virtual void keyPressEvent(QKeyEvent* event) override; // 声明键盘事件处理函数
-	virtual void copySelectedShape();         // 复制选中图形
-	virtual void pasteCopiedShape();          // 粘贴复制的图形
-	KShape* m_copiedShape = nullptr; // 保存复制的图形实例
+	virtual void keyPressEvent(QKeyEvent* event) override; 
+	virtual void copySelectedShape();         
+	virtual void pasteCopiedShape();          
+	KShape* m_copiedShape = nullptr; 
 	KShape *getCurrentShape(QPointF pos); 
 	QList<KShape*> *getShapeList();
 
