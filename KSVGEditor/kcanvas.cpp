@@ -2,6 +2,7 @@
 #include "kshapefactory.h"
 #include "kshapeparameter.h"
 #include <QWheelEvent>
+#include <QContextMenuEvent> 
 
 KCanvas::KCanvas(QWidget *parent)
 	: QWidget(parent)
@@ -113,6 +114,86 @@ void KCanvas::paintEvent(QPaintEvent *event)
 	}
 }
 
+void KCanvas::contextMenuEvent(QContextMenuEvent* event) {
+	if (m_currentDrawFlag == KDrawFlag::MouseDrawFlag) {
+		QPoint pos = event->pos();
+		KShape* shape = getCurrentShape(pos);
+		if (shape) {
+			m_pCurrentShape = shape;
+			KShapeParameter::getInstance()->setCurrentShape(m_pCurrentShape);
+			emit shapeSelected(true);
+			int width = m_pCurrentShape->getBorderWidth();
+			emit currentShapeBorderWidth(width);
+			Qt::PenStyle style = m_pCurrentShape->getBorderStyle();
+			emit currentShapeBorderStyle(style);
+			QRgb rgb = m_pCurrentShape->getBorderColor();
+			emit currntShapeBorderColor(rgb);
+			rgb = m_pCurrentShape->getShapeColor();
+			emit currntShapeColor(rgb);
+			int index = m_pShapeList->indexOf(m_pCurrentShape);
+			bool isTop = (index == m_pShapeList->size() - 1);   
+			bool isBottom = (index == 0);                       
+			QMenu menu(this);
+			QAction* moveTopAction = menu.addAction("moveToTopLayer");
+			moveTopAction->setEnabled(!isTop); 
+			QAction* moveBottomAction = menu.addAction("moveToBottomLayer");
+			moveBottomAction->setEnabled(!isBottom); 
+			QAction* moveUpAction = menu.addAction("moveUpOneLayer");
+			moveUpAction->setEnabled(index > 0); 
+			QAction* moveDownAction = menu.addAction("moveDownOneLayer");
+			moveDownAction->setEnabled(index < m_pShapeList->size() - 1); 
+			connect(moveTopAction, &QAction::triggered, this, &KCanvas::moveToTopLayer);
+			connect(moveBottomAction, &QAction::triggered, this, &KCanvas::moveToBottomLayer);
+			connect(moveUpAction, &QAction::triggered, this, &KCanvas::moveUpOneLayer);
+			connect(moveDownAction, &QAction::triggered, this, &KCanvas::moveDownOneLayer);
+			menu.exec(event->globalPos());
+		}
+	}
+	event->accept();
+}
+
+
+void KCanvas::moveToTopLayer() {
+	if (!m_pCurrentShape || m_pShapeList->isEmpty()) return;
+	int index = m_pShapeList->indexOf(m_pCurrentShape);
+	if (index != -1 && index != m_pShapeList->size() - 1) {
+		m_pShapeList->removeAt(index);
+		m_pShapeList->append(m_pCurrentShape);
+		update(); 
+	}
+}
+
+
+void KCanvas::moveToBottomLayer() {
+	if (!m_pCurrentShape || m_pShapeList->isEmpty()) return;
+	int index = m_pShapeList->indexOf(m_pCurrentShape);
+	if (index != -1 && index != 0) {
+		m_pShapeList->removeAt(index);
+		m_pShapeList->prepend(m_pCurrentShape);
+		update(); 
+	}
+}
+
+
+void KCanvas::moveUpOneLayer() {
+	if (!m_pCurrentShape || m_pShapeList->isEmpty()) return;
+	int index = m_pShapeList->indexOf(m_pCurrentShape);
+	if (index > 0) {
+		m_pShapeList->swap(index, index - 1);
+		update();
+	}
+}
+
+
+void KCanvas::moveDownOneLayer() {
+	if (!m_pCurrentShape || m_pShapeList->isEmpty()) return;
+	int index = m_pShapeList->indexOf(m_pCurrentShape);
+	if (index < m_pShapeList->size() - 1) {
+		m_pShapeList->swap(index, index + 1);
+		update(); 
+	}
+}
+
 
 void KCanvas::mousePressEvent(QMouseEvent *event)
 {
@@ -201,10 +282,11 @@ void KCanvas::mouseMoveEvent(QMouseEvent *event)
 {
 	if (m_currentDrawFlag == KDrawFlag::NoneDrawFlag)
 		return;
+
 	QPoint nowPos = event->pos();
 	if (m_currentDrawFlag == KDrawFlag::MouseDrawFlag)
 	{
-		if(m_enableSelect)
+		if (m_enableSelect && m_isLPress)
 		{
 			QPointF offset = nowPos - m_lastPos;
 			switch (m_transType)
@@ -261,13 +343,15 @@ void KCanvas::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (m_currentDrawFlag == KDrawFlag::NoneDrawFlag)
 		return;
+
 	if (m_currentDrawFlag == KDrawFlag::MouseDrawFlag)
 	{
 		if (event->button() == Qt::LeftButton)
 		{
-			m_isLPress = false;
+			m_isLPress = false;          
+			m_enableSelect = false;      
+			m_transType = KMoveType::None; 
 		}
-			
 	}
 	else
 	{

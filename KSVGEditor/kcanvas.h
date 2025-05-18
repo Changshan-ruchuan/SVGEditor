@@ -14,6 +14,8 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QMenu> 
+#include <QAction> 
 #include "kshape.h"
 
 
@@ -61,14 +63,19 @@ public:
 	virtual void wheelEvent(QWheelEvent* event) override;
 	virtual void keyPressEvent(QKeyEvent* event) override; 
 	virtual void copySelectedShape();         
-	virtual void pasteCopiedShape();          
+	virtual void pasteCopiedShape();
+	virtual void contextMenuEvent(QContextMenuEvent* event) override;
 	KShape* m_copiedShape = nullptr; 
 	KShape *getCurrentShape(QPointF pos); 
 	QList<KShape*> *getShapeList();
 
 	void setCanvasWidth(int width);		
 	void setCanvasHeight(int height);	
-	void zoomCanvas(qreal scale);	
+	void zoomCanvas(qreal scale);
+	void moveToTopLayer();    
+	void moveToBottomLayer(); 
+	void moveUpOneLayer();    
+	void moveDownOneLayer();  
 
 	int getCanvasWidth();	
 	int getCanvasHeight();	
